@@ -45,8 +45,8 @@ ext {
 
     libraryDescription = 'Persian android store util'
 
-    siteUrl = 'https://github.com/shahab-yousefi/PersianAndroidStoreUtil'
-    gitUrl = 'https://github.com/shahab-yousefi/PersianAndroidStoreUtil.git'
+    siteUrl = 'https://github.com/shahab-yousefi/persian-android-store-util'
+    gitUrl = 'https://github.com/shahab-yousefi/persian-android-store-util.git'
 
     libraryVersion = android.defaultConfig.versionName
 
