@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Persian Android Store Util Demo</string>
+    <string name="update">update</string>
+    <string name="all_items">All Items</string>
+    <string name="purchased_items">Purchased Items</string>
+</resources>

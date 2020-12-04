@@ -1,0 +1,3 @@
+include ':pasu'
+include ':app'
+rootProject.name = "Persian Android Store Util Demo"
