@@ -13,6 +13,13 @@ import com.codegames.pasu.util.Purchase
 import com.codegames.pasu.util.SkuDetails
 import com.codegames.simplelist.adapter.SimpleAdapter
 import com.codegames.simplelist.simple
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.reward.RewardedVideoAd
+import com.google.android.gms.ads.reward.RewardedVideoAdListener
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,13 +29,11 @@ import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_view.view.*
 import kotlinx.coroutines.*
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
-
-    private val googleToken =
-        "173894369770-ggf1e0dl2iasng9umsrn14k650qquvc7.apps.googleusercontent.com"
 
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
@@ -37,7 +42,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     private val skuList = listOf("coin1", "coin2")
     private val market = MarketUtil.MARKET_BAZAAR
     private val publicKey =
-        "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDptu/KlNy9Ohnpp2uOuoBny5CTiN5v15AXHFJSI8AaRCkdnDLsaCJF4rZrPzUboozljNPa2nYGDZnA804f8V7ptoWHIZzM0LuLmtrWVBOAutNfGMB7sV99DAR5fNTyR0z142IBcVtAg2odZgRroSTdSpk2Ze6Gin1i5yovM3rWxIaniPeRmc4nGSTJPfKUJS66nIhJDLMaqKldaCALd/LCDvZGqDMM/sTO2/Q/yg8CAwEAAQ=="
+        ""
 
     private var itemList = mutableListOf<SkuDetails>()
     private var itemAdapter: SimpleAdapter<SkuDetails>? =
@@ -55,21 +60,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         job = Job()
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(googleToken)
-            .requestEmail()
-            .build()
-
-        val googleClient = GoogleSignIn.getClient(this, gso)
-
-        GoogleSignIn.getLastSignedInAccount(this)?.also {
-            Toast.makeText(this, it.email, Toast.LENGTH_SHORT).show()
-        }
-
-        googleLogin.setOnClickListener {
-            startActivityForResult(googleClient.signInIntent, RC_SIGN_IN)
-        }
 
         MarketUtil.setTargetMarket(market)
         MarketUtil.targetMarket?.enableDebugLogging = true
@@ -238,7 +228,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d("s", account.idToken.toString())
+                Log.d("s", account.idToken)
                 Toast.makeText(this, account.email, Toast.LENGTH_SHORT).show()
             } catch (e: ApiException) {
                 Toast.makeText(
