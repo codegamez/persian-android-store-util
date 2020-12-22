@@ -4,6 +4,7 @@ import android.content.Context
 
 interface MarketInterface {
 
+    val marketName: String
     val marketId: String
     val marketPackage: String
     var tag: String

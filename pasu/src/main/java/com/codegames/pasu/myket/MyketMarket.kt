@@ -12,6 +12,7 @@ import com.codegames.pasu.bazaar.BazaarMarketLoginCheck
 
 class MyketMarket : MarketInterface {
 
+    override val marketName = "myket"
     override val marketId = "ir.mservices.market"
     override val marketPackage = "ir.mservices.market"
 

@@ -15,6 +15,7 @@ import java.lang.Exception
 
 class BazaarMarket: MarketInterface {
 
+    override val marketName = "cafebazaar"
     override val marketId = "ir.cafebazaar.pardakht"
     override val marketPackage = "com.farsitel.bazaar"
 

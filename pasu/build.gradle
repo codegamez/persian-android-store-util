@@ -4,9 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
@@ -14,19 +11,15 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
-        debug {
-            buildConfigField "String", "BAZAAR_KEY", "\"" + properties.getProperty("bazaar_public_key") + "\""
-        }
         release {
-            buildConfigField "String", "BAZAAR_KEY", "\"" + properties.getProperty("bazaar_public_key") + "\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

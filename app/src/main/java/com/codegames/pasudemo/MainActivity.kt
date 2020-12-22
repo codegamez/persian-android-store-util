@@ -41,8 +41,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private val skuList = listOf("coin1", "coin2")
     private val market = MarketUtil.MARKET_BAZAAR
-    private val publicKey =
-        ""
+    private val publicKey = BuildConfig.BAZAAR_KEY
 
     private var itemList = mutableListOf<SkuDetails>()
     private var itemAdapter: SimpleAdapter<SkuDetails>? =
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         job = Job()
 
         MarketUtil.setTargetMarket(market)
-        MarketUtil.targetMarket?.enableDebugLogging = true
+        MarketUtil.targetMarket?.enableDebugLogging = BuildConfig.DEBUG
 
         setupList()
 

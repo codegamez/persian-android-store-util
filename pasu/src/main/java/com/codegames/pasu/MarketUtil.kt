@@ -9,6 +9,9 @@ object MarketUtil {
     const val MARKET_BAZAAR = 1
     const val MARKET_MYKET = 2
 
+    const val MARKET_STRING_BAZAAR = "cafebazaar"
+    const val MARKET_STRING_MYKET = "myket"
+
     var targetMarket: MarketInterface? = null
 
     val updater get() = targetMarket?.updater

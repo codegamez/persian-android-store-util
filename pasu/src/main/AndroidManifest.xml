@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codegames.pasu">
-    <uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
-    <uses-permission android:name="ir.mservices.market.BILLING" />
+<!--    <uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />-->
+<!--    <uses-permission android:name="ir.mservices.market.BILLING" />-->
 </manifest>
