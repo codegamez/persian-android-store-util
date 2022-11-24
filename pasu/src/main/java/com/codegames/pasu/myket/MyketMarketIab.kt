@@ -2,10 +2,8 @@ package com.codegames.pasu.myket
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import com.codegames.pasu.*
 import com.codegames.pasu.util.*
-import java.lang.Exception
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -76,7 +74,12 @@ class MyketMarketIab(val market: MarketInterface) : MarketIabInterface {
             this.iabListener = it
         }
         mHelper =
-            IabHelper(context, publicKey, market.marketId, market.marketPackage)
+            IabHelper(
+                context,
+                publicKey,
+                market.marketId,
+                market.marketPackage
+            )
         mHelper?.enableDebugLogging(market.enableDebugLogging, market.tag)
         mHelper?.startSetup { result ->
             if (!result.isSuccess) {
@@ -111,7 +114,10 @@ class MyketMarketIab(val market: MarketInterface) : MarketIabInterface {
         enable = false
     }
 
-    override fun getInventory(skuList: List<String>?, listener: MarketInventoryListener.() -> Unit) {
+    override fun getInventory(
+        skuList: List<String>?,
+        listener: MarketInventoryListener.() -> Unit
+    ) {
         if (!enable) {
             throw Throwable("iab service is not enabled. first call initService.")
         }
@@ -147,7 +153,6 @@ class MyketMarketIab(val market: MarketInterface) : MarketIabInterface {
     override fun launchPurchase(
         context: Context,
         sku: String,
-        requestCode: Int,
         extraData: String?,
         listener: MarketPurchaseListener.() -> Unit
     ) {
@@ -162,7 +167,6 @@ class MyketMarketIab(val market: MarketInterface) : MarketIabInterface {
             mHelper?.launchPurchaseFlow(
                 context as Activity,
                 sku,
-                requestCode,
                 mPurchaseFinishedListener,
                 extraData
             )
@@ -178,11 +182,10 @@ class MyketMarketIab(val market: MarketInterface) : MarketIabInterface {
     override suspend fun launchPurchase(
         context: Context,
         sku: String,
-        requestCode: Int,
         extraData: String?
     ): Purchase {
         return suspendCoroutine { cont ->
-            launchPurchase(context, sku, requestCode, extraData) {
+            launchPurchase(context, sku, extraData) {
                 onSuccess = {
                     cont.resume(it)
                 }
@@ -191,10 +194,6 @@ class MyketMarketIab(val market: MarketInterface) : MarketIabInterface {
                 }
             }
         }
-    }
-
-    override fun handleActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-        return mHelper?.handleActivityResult(requestCode, resultCode, data) ?: false
     }
 
     override fun consume(purchase: Purchase, listener: MarketConsumeListener.() -> Unit) {

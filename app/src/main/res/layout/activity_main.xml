@@ -24,36 +24,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp">
-
-                <com.google.android.gms.common.SignInButton
-                    android:id="@+id/googleLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/phoneLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#4caf50"
-                    android:text="Phone Login"
-                    android:textColor="#ffffff"
-                    tools:ignore="HardcodedText" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnAd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#532375"
-                    android:text="Show Ad"
-                    android:textColor="#ffffff"
-                    tools:ignore="HardcodedText" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:background="#f4f4f4"

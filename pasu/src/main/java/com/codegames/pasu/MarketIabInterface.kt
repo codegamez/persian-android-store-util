@@ -1,7 +1,6 @@
 package com.codegames.pasu
 
 import android.content.Context
-import android.content.Intent
 import com.codegames.pasu.util.*
 
 interface MarketIabInterface {
@@ -18,7 +17,6 @@ interface MarketIabInterface {
     fun launchPurchase(
         context: Context,
         sku: String,
-        requestCode: Int,
         extraData: String?,
         listener: MarketPurchaseListener.() -> Unit
     )
@@ -26,11 +24,8 @@ interface MarketIabInterface {
     suspend fun launchPurchase(
         context: Context,
         sku: String,
-        requestCode: Int,
         extraData: String?
     ): Purchase
-
-    fun handleActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean
 
     fun consume(purchase: Purchase, listener: MarketConsumeListener.() -> Unit)
     suspend fun consume(purchase: Purchase): Purchase

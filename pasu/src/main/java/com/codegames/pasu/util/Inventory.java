@@ -20,15 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Represents a block of information about in-app items.
- * An Inventory is returned by such methods as {@link IabHelper#queryInventory}.
- */
+
 public class Inventory {
     public Map<String, SkuDetails> mSkuMap = new HashMap<String, SkuDetails>();
     public Map<String, Purchase> mPurchaseMap = new HashMap<String, Purchase>();
 
-    Inventory() {
+    public Inventory() {
     }
 
     /**
@@ -81,7 +78,7 @@ public class Inventory {
     /**
      * Returns a list of all owned product IDs of a given type
      */
-    List<String> getAllOwnedSkus(String itemType) {
+    public List<String> getAllOwnedSkus(String itemType) {
         List<String> result = new ArrayList<String>();
         for (Purchase p : mPurchaseMap.values()) {
             if (p.getItemType().equals(itemType)) result.add(p.getSku());
@@ -103,7 +100,7 @@ public class Inventory {
         return new ArrayList<SkuDetails>(mSkuMap.values());
     }
 
-    void addSkuDetails(SkuDetails d) {
+    public void addSkuDetails(SkuDetails d) {
         mSkuMap.put(d.getSku(), d);
     }
 

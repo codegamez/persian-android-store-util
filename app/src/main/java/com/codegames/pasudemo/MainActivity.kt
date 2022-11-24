@@ -2,7 +2,6 @@
 
 package com.codegames.pasudemo
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -13,23 +12,9 @@ import com.codegames.pasu.util.Purchase
 import com.codegames.pasu.util.SkuDetails
 import com.codegames.simplelist.adapter.SimpleAdapter
 import com.codegames.simplelist.simple
-import com.google.android.gms.ads.*
-import com.google.android.gms.ads.reward.RewardedVideoAd
-import com.google.android.gms.ads.reward.RewardedVideoAdListener
-import com.google.android.gms.ads.rewarded.RewardItem
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdCallback
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_view.view.*
 import kotlinx.coroutines.*
-import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -49,11 +34,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     private var purchaseList = mutableListOf<Purchase>()
     private var purchaseAdapter: SimpleAdapter<Purchase>? =
         null
-
-    companion object {
-        const val RC_PURCHASE = 10
-        const val RC_SIGN_IN = 11
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,7 +118,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             val iab = MarketUtil.iab!!
 
             val purchase = iab.launchPurchase(
-                this@MainActivity, sku, RC_PURCHASE, System.currentTimeMillis().toString()
+                this@MainActivity, sku, System.currentTimeMillis().toString()
             )
 
             Log.d("s", purchase.toString())
@@ -189,7 +169,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                     purchaseItem(item.sku)
                 }
 
-                bind { view, item, position ->
+                bind { view, item, _ ->
                     view.iv_title.text = item.title
                     view.iv_price.text = item.price
                 }
@@ -214,27 +194,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                     view.iv_price.text = i?.price
                 }
 
-            }
-        }
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (MarketUtil.iab?.handleActivityResult(requestCode, resultCode, data) == true) return
-
-        if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                Log.d("s", account.idToken)
-                Toast.makeText(this, account.email, Toast.LENGTH_SHORT).show()
-            } catch (e: ApiException) {
-                Toast.makeText(
-                    this,
-                    GoogleSignInStatusCodes.getStatusCodeString(e.statusCode),
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
 
